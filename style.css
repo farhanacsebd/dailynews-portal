@@ -13,6 +13,24 @@
     color: #0066ff;
 }
 
+.btn-more{
+    background: #5D5FEF;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+    line-height: 1;
+    margin-bottom: 0;
+    padding: 13px 25px;
+    border: none;
+    color: white;
+}
+.btn-more:hover{
+    background-color: white;
+    color: #5D5FEF;
+    border: 1px solid #5D5FEF;
+}
+
 /* ------------------------------------------------------------------- */
 /* ------------------------loading css start-------------------------- */
 /* -------------------------------------------------------------------- */
