@@ -1,3 +1,4 @@
+// category section load data only
 const loadAllCategory = async () => {
   const url = `https://openapi.programming-hero.com/api/news/categories`;
   const res = await fetch(url);
@@ -5,8 +6,11 @@ const loadAllCategory = async () => {
   displayAllCategory(data.data.news_category);
 };
 
+// category section display data only
 const displayAllCategory = (datas) => {
   // console.log(datas);
+
+  // display card id name
   const displayCategory = document.getElementById("displayCategory");
 
   // category section start
@@ -16,8 +20,6 @@ const displayAllCategory = (datas) => {
     div.classList.add("nav");
     div.innerHTML = `
             <li class="nav-item">
-             
-            
             <button class="border-0 bg-light" onclick="loadAllNews('${data.category_id}')"> <a class="nav-link disabled" href="#">${data.category_name}</a></button>
             </li>
             `;
@@ -37,10 +39,15 @@ const displayAllNews = (newsDatas) => {
   const displayCards = document.getElementById("displayCards");
   displayCards.textContent = "";
 
+  // <!-- total result count div -->
   const resultFound = document.getElementById("resultFound");
   resultFound.innerHTML = `${newsDatas.length} items found for category All News`;
+  if(newsDatas.length === 0){
+    resultFound.innerHTML= `<img class="w-100" src="https://bestmediainfo.com/uploads/2020/10/Not-a-big-deal_8.gif">`
+  } 
+  // card section start 
   newsDatas.forEach((newsData) => {
-    console.log(newsData);
+    // console.log(newsData);
     const div = document.createElement("div");
     div.classList.add("card");
     div.classList.add("mb-5");
@@ -57,17 +64,17 @@ const displayAllNews = (newsDatas) => {
         <p class="card-text mb-5">${newsData.details.slice(0, 500)}</p>
           <div class="d-flex mt-5"><img src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg" style="height:50px;" class="rounded-circle" alt="">
             <div class="ms-2">
-              <h6 class="fw-bold">${newsData.author.name}</h6>
-            <p>${newsData.author.published_date.slice(0, 10)}</p>
+              <h6 class="fw-bold">${newsData.author.name?newsData.author.name:'Empty Name'}</h6>
+            <p>${newsData.author.published_date.slice(0,10)}</p>
             </div>
             <div class="ms-3">
-              <img src="/images/eye.png" alt=""><span class="fw-bold">${newsData.total_view}</span>
+              <img src="/images/eye.png" alt=""><span class="fw-bold">${newsData.total_view?newsData.total_view:'00'}</span>
             </div>
             <div class="ms-5 me-5">
               <img src="/images/review.png" alt="">
             </div>
             <div class="ms-5">
-              <img src="/images/arrow.png" alt="">
+            <button class="border border-0 bg-white"><img src="/images/arrow.png" alt=""></button>
             </div>
             </div>
         </div>
@@ -76,6 +83,65 @@ const displayAllNews = (newsDatas) => {
         `;
     displayCards.appendChild(div);
   });
+  
 };
 
+
+// this is only data loading function.it all the time load the data if anyone no click anywhere then display this
+
+const dataLoadAllTime = async() =>{
+  const url = `https://openapi.programming-hero.com/api/news/category/08`;
+  const res = await fetch(url);
+  const data = await res.json();
+  dataDisplayAllTime(data.data);
+}
+
+const dataDisplayAllTime = allDatas =>{
+  // console.log(allDatas);
+  const displayCards = document.getElementById("displayCards");
+  displayCards.textContent = "";
+
+  // <!-- total result count div -->
+  const resultFound = document.getElementById("resultFound");
+  resultFound.innerHTML = `${allDatas.length} items found for category All News`;
+
+  allDatas.forEach(allData => {
+    console.log(allData);
+    const div = document.createElement("div");
+    div.classList.add("card");
+    div.classList.add("mb-5");
+    div.classList.add("shadow");
+    div.innerHTML = `
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img style="height: 400px; weight: 200px;" src="${allData.image_url}"
+        class="img-fluid rounded p-4" alt="...">
+      </div>
+      <div class="col-md-8 p-4">
+        <div class="card-body">
+          <h5 class="card-title">${allData.title}</h5>
+        <p class="card-text mb-5">${allData.details.slice(0, 500)}</p>
+          <div class="d-flex mt-5"><img src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg" style="height:50px;" class="rounded-circle" alt="">
+            <div class="ms-2">
+              <h6 class="fw-bold">${allData.author.name?allData.author.name:'Empty Name'}</h6>
+              <p>${allData.author.published_date}</p>
+            </div>
+            <div class="ms-3">
+              <img src="/images/eye.png" alt=""><span class="fw-bold">${allData.total_view?allData.total_view:'00'}</span>
+            </div>
+            <div class="ms-5 me-5">
+              <img src="/images/review.png" alt="">
+            </div>
+            <div class="ms-5">
+            <button class="border border-0 bg-white"><img src="/images/arrow.png" alt=""></button>
+            </div>
+            </div>
+        </div>
+      </div>
+    </div>
+        `;
+    displayCards.appendChild(div);
+  });
+}
+dataLoadAllTime()
 loadAllCategory();

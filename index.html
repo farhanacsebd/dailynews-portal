@@ -19,7 +19,7 @@
   </head>
   <body class="container bg-light">
     <header class="mt-2">
-      <!-- end navbar -->
+      <!-- start navbar -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
           <a class="navbar-brand" href="#"
@@ -39,7 +39,7 @@
           <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNav">
             <ul class="navbar-nav">
               <li class="nav-item">
-                <a class="nav-link active fs-5" href="#" id="news">News</a>
+                <a onclick="dataLoadAllTime()" class="nav-link active fs-5" href="#" id="news">News</a>
               </li>
               <li class="nav-item">
                 <a onclick="alert('This feature will come soon')" id="blog" class="nav-link fs-5" href="#">Blog</a>
@@ -60,12 +60,13 @@
     </header>
     <main class="container">
       <section>
-        <h5 id="resultFound" class="bg-white p-3 my-3 rounded"></h5>
-
+        <!-- total result count div -->
+        <h5  id="resultFound" class="bg-white p-3 my-5 rounded"></h5>
+        <!-- sort view section -->
         <div class="d-flex justify-content-between">
           <div>Sort By View:</div>
           <div>
-            <button  onclick="alert('This feature will come soon')" type="button" class="btn btn-primary mx-2">TODAY'S PICK</button>
+            <button type="button" class="btn btn-primary mx-2">TODAY'S PICK</button>
             <button  onclick="alert('This feature will come soon')" type="button" class="btn btn-outline-primary px-4">TRENDING</button>
           </div>
         </div>
@@ -77,6 +78,7 @@
         <!-- card section end --> 
       </section>
     </main>
+    <!-- this is the footer section -->
     <footer>
         <h6 class="text-center m-5">Copyright 2023 DailyNews</h6>
     </footer>
