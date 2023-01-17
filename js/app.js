@@ -28,6 +28,7 @@ const displayAllCategory = (datas) => {
 };
 
 const loadAllNews = async (id) => {
+  toggleSpinner(true)
   const url = `https://openapi.programming-hero.com/api/news/category/${id}`;
   const res = await fetch(url);
   const data = await res.json();
@@ -87,6 +88,7 @@ const displayAllNews = (newsDatas) => {
         `;
     displayCards.appendChild(div);
   });
+  toggleSpinner(false)
 };
 
 // button details news secations
@@ -120,7 +122,7 @@ const displayDetailsInfo = (id) => {
 
 const dataLoadAllTime = async() =>{
   toggleSpinner(true)
-  const url = `https://openapi.programming-hero.com/api/news/category/08`;
+  const url = `https://openapi.programming-hero.com/api/news/category/05`;
   const res = await fetch(url);
   const data = await res.json();
   dataDisplayAllTime(data.data);
@@ -138,7 +140,8 @@ const dataDisplayAllTime = allDatas =>{
   resultFound.innerHTML = `${allDatas.length} Items Found for Category All News`;
 
   allDatas.forEach(allData => {
-    // console.log(allData);
+    
+    console.log(allData);
     const div = document.createElement("div");
     div.classList.add("card");
     div.classList.add("mb-5");
