@@ -46,9 +46,16 @@ const displayAllNews = (newsDatas) => {
   if (newsDatas.length === 0) {
     resultFound.innerHTML = `<img class="w-100" src="https://bestmediainfo.com/uploads/2020/10/Not-a-big-deal_8.gif">`;
   }
-  // card section start
-  newsDatas.forEach((newsData) => {
-    // console.log(newsData);
+  
+
+// Our sorting function
+  newsDatas.sort(
+    (p1, p2) => 
+    (p1.total_view < p2.total_view) ? 1 : (p1.total_view > p2.total_view) ? -1 : 0);
+  
+  
+    newsDatas.forEach((newsData) => {
+    // card section start
     const div = document.createElement("div");
     div.classList.add("card");
     div.classList.add("mb-5");
