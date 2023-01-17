@@ -41,7 +41,7 @@ const displayAllNews = (newsDatas) => {
 
   // <!-- total result count div -->
   const resultFound = document.getElementById("resultFound");
-  resultFound.innerHTML = `${newsDatas.length} items found for category All News`;
+  resultFound.innerHTML = `${newsDatas.length} Items Found for Category`;
   if (newsDatas.length === 0) {
     resultFound.innerHTML = `<img class="w-100" src="https://bestmediainfo.com/uploads/2020/10/Not-a-big-deal_8.gif">`;
   }
@@ -135,7 +135,7 @@ const dataDisplayAllTime = allDatas =>{
 
   // <!-- total result count div -->
   const resultFound = document.getElementById("resultFound");
-  resultFound.innerHTML = `${allDatas.length} items found for category All News`;
+  resultFound.innerHTML = `${allDatas.length} Items Found for Category All News`;
 
   allDatas.forEach(allData => {
     // console.log(allData);
@@ -153,7 +153,7 @@ const dataDisplayAllTime = allDatas =>{
         <div class="card-body">
           <h5 class="card-title">${allData.title}</h5>
         <p class="card-text mb-5">${allData.details.slice(0, 500)}</p>
-          <div class="d-flex mt-5"><img src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg" style="height:50px;" class="rounded-circle" alt="">
+          <div class="d-flex mt-5"><img src="${allData.author.img}" style="height:40px;" class="rounded-circle" alt="">
             <div class="ms-2">
               <h6 class="fw-bold">${allData.author.name?allData.author.name:'Empty Name'}</h6>
               <p>${allData.author.published_date}</p>
@@ -165,7 +165,11 @@ const dataDisplayAllTime = allDatas =>{
               <img src="/images/review.png" alt="">
             </div>
             <div class="ms-5">
-            <button class="border border-0 bg-white"><img src="/images/arrow.png" alt=""></button>
+            <button onclick="detailsInfo('${
+              allData._id
+            }')" type="button"  class="border border-0 bg-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <img src="/images/arrow.png" alt="">
+</button>
             </div>
             </div>
         </div>
