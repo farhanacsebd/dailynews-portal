@@ -9,7 +9,7 @@ const loadAllCategory = async () => {
 // category section display data only
 const displayAllCategory = (datas) => {
   // console.log(datas);
-
+  
   // display card id name
   const displayCategory = document.getElementById("displayCategory");
 
@@ -119,6 +119,7 @@ const displayDetailsInfo = (id) => {
 // this is only data loading function.it all the time load the data if anyone no click anywhere then display this
 
 const dataLoadAllTime = async() =>{
+  toggleSpinner(true)
   const url = `https://openapi.programming-hero.com/api/news/category/08`;
   const res = await fetch(url);
   const data = await res.json();
@@ -127,8 +128,10 @@ const dataLoadAllTime = async() =>{
 
 const dataDisplayAllTime = allDatas =>{
   // console.log(allDatas);
+ 
   const displayCards = document.getElementById("displayCards");
   displayCards.textContent = "";
+
 
   // <!-- total result count div -->
   const resultFound = document.getElementById("resultFound");
@@ -171,6 +174,18 @@ const dataDisplayAllTime = allDatas =>{
         `;
     displayCards.appendChild(div);
   });
+  toggleSpinner(false)
+}
+
+const toggleSpinner = isLoading =>{
+  const loadSection = document.getElementById('spinner');
+
+  if(isLoading){
+      loadSection.classList.remove('d-none')
+  }
+  else{
+      loadSection.classList.add('d-none')
+  }
 }
 
 dataLoadAllTime()
