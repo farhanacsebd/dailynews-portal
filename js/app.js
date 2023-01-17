@@ -42,10 +42,10 @@ const displayAllNews = (newsDatas) => {
   // <!-- total result count div -->
   const resultFound = document.getElementById("resultFound");
   resultFound.innerHTML = `${newsDatas.length} items found for category All News`;
-  if(newsDatas.length === 0){
-    resultFound.innerHTML= `<img class="w-100" src="https://bestmediainfo.com/uploads/2020/10/Not-a-big-deal_8.gif">`
-  } 
-  // card section start 
+  if (newsDatas.length === 0) {
+    resultFound.innerHTML = `<img class="w-100" src="https://bestmediainfo.com/uploads/2020/10/Not-a-big-deal_8.gif">`;
+  }
+  // card section start
   newsDatas.forEach((newsData) => {
     // console.log(newsData);
     const div = document.createElement("div");
@@ -61,20 +61,24 @@ const displayAllNews = (newsDatas) => {
       <div class="col-md-8 p-4">
         <div class="card-body">
           <h5 class="card-title">${newsData.title}</h5>
-        <p class="card-text mb-5">${newsData.details.slice(0, 500)}</p>
-          <div class="d-flex mt-5"><img src="https://d2qp0siotla746.cloudfront.net/img/use-cases/profile-picture/template_3.jpg" style="height:50px;" class="rounded-circle" alt="">
+        <p class="card-text mb-5">${newsData.details.slice(0, 500)}...</p>
+          <div class="d-flex mt-5"><img src="${newsData.author.img}" style="height:40px;" class="rounded-circle" alt="">
             <div class="ms-2">
-              <h6 class="fw-bold">${newsData.author.name?newsData.author.name:'Empty Name'}</h6>
-            <p>${newsData.author.published_date.slice(0,10)}</p>
+              <h6 class="fw-bold">${newsData.author.name ? newsData.author.name : "Empty Name"}</h6>
+            <p>${newsData.author.published_date}</p>
             </div>
             <div class="ms-3">
-              <img src="/images/eye.png" alt=""><span class="fw-bold">${newsData.total_view?newsData.total_view:'00'}</span>
+              <img src="/images/eye.png" alt=""><span class="fw-bold">${newsData.total_view ? newsData.total_view : "00"}</span>
             </div>
             <div class="ms-5 me-5">
               <img src="/images/review.png" alt="">
             </div>
             <div class="ms-5">
-            <button class="border border-0 bg-white"><img src="/images/arrow.png" alt=""></button>
+            <button onclick="detailsInfo('${
+              newsData._id
+            }')" type="button"  class="border border-0 bg-white" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <img src="/images/arrow.png" alt="">
+</button>
             </div>
             </div>
         </div>
@@ -83,9 +87,34 @@ const displayAllNews = (newsDatas) => {
         `;
     displayCards.appendChild(div);
   });
-  
 };
 
+// button details news secations
+const detailsInfo = async (detailID) => {
+  const url = `https://openapi.programming-hero.com/api/news/${detailID}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displayDetailsInfo(data.data);
+};
+
+const displayDetailsInfo = (id) => {
+  console.log(id);
+  const detailInfo = document.getElementById("detailInfo");
+  detailInfo.textContent = "";
+  id.forEach((info) => {
+    const div = document.createElement("div");
+    div.classList.add("card");
+    div.classList.add("border-0");
+    div.innerHTML = `
+  <img src="${info.image_url}" class="card-img-top" alt="...">
+  <div class="card-body">
+  <h5 class="card-title">${info.title}</h5>
+  <p class="card-text">${info.details.slice(0, 500)}</p>
+</div>
+  `;
+    detailInfo.appendChild(div);
+  });
+};
 
 // this is only data loading function.it all the time load the data if anyone no click anywhere then display this
 
@@ -106,7 +135,7 @@ const dataDisplayAllTime = allDatas =>{
   resultFound.innerHTML = `${allDatas.length} items found for category All News`;
 
   allDatas.forEach(allData => {
-    console.log(allData);
+    // console.log(allData);
     const div = document.createElement("div");
     div.classList.add("card");
     div.classList.add("mb-5");
@@ -143,5 +172,6 @@ const dataDisplayAllTime = allDatas =>{
     displayCards.appendChild(div);
   });
 }
+
 dataLoadAllTime()
 loadAllCategory();
